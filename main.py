@@ -22,9 +22,10 @@ class Sierpinski:
         self.iterations = iterations
         self.points = [Point(0.0, 0.0), Point(1.0, 0.0), Point(0.5, sqrt(3)/2)]
         self.fig, self.ax = plt.subplots()
+        self.last_point = self.points[-1]
 
     def generate(self):
-        animation = FuncAnimation(self.fig, self.animate, interval=1)
+        animation = FuncAnimation(self.fig, self.animate, interval=200, frames=self.iterations)
         plt.show()
 
     def random_point(self):
@@ -32,13 +33,12 @@ class Sierpinski:
 
     def new_point(self):
         random_point = self.random_point()
-        last_point = self.points[-1]
-        return random_point + last_point
+        return random_point + self.last_point
 
     def animate(self, i):
         new_point = self.new_point()
-        self.points.append(new_point)
-        self.ax.scatter(new_point.x, new_point.y)
+        self.last_point = new_point
+        self.ax.scatter(new_point.x, new_point.y, c='blue')
 
 if __name__ == '__main__':
     sierpinski = Sierpinski(10000)
