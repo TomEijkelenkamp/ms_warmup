@@ -36,14 +36,9 @@ class Sierpinski:
         return random_point + last_point
 
     def animate(self, i):
-        self.points.append(self.new_point)
-        self.ax.scatter(self.get_x(), self.get_y())
-
-    def get_x(self):
-        return [point.x for point in self.points]
-
-    def get_y(self):
-        return [point.y for point in self.points]
+        new_point = self.new_point()
+        self.points.append(new_point)
+        self.ax.scatter(new_point.x, new_point.y)
 
 if __name__ == '__main__':
     sierpinski = Sierpinski(10000)
