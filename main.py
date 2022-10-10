@@ -1,7 +1,9 @@
 from cmath import sqrt
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-import numpy as np
+from random import randint
+
+
 
 class Point:
     """ Point class for representing and manipulating x,y coordinates. """
@@ -17,33 +19,29 @@ class Point:
 
 
 class Sierpinski:
-
     def __init__(self, iterations):
         self.iterations = iterations
-        self.points = [Point(0.0, 0.0), Point(1.0, 0.0), Point(0.5, sqrt(3)/2)]
+        self.points = [Point(0.0, 0.0), Point(1.0, 0.0), Point(0.5, sqrt(3)/2), Point(0.6,0.2)]
         self.fig, self.ax = plt.subplots()
         self.last_point = self.points[-1]
 
     def generate(self):
-        animation = FuncAnimation(self.fig, self.animate, interval=200, frames=self.iterations)
+        for i in range(3):
+            self.ax.scatter(self.points[i].x, self.points[i].y, )
+        animation = FuncAnimation(self.fig, self.animate, interval = 100, frames=self.iterations, repeat=True)
         plt.show()
-
-    def random_point(self):
-        return self.points[np.random.randint(0, 3)]
-
-    def new_point(self):
-        random_point = self.random_point()
-        return random_point + self.last_point
-
+   
+        
     def animate(self, i):
-        new_point = self.new_point()
-        self.last_point = new_point
-        self.ax.scatter(new_point.x, new_point.y, c='blue')
-
+        self.last_point =  (self.points[randint(0, 2)] + self.last_point)
+        plt.plot(self.last_point.x, self.last_point.y, linestyle='',  marker='o')
+        plt.draw()
+              
 if __name__ == '__main__':
-    sierpinski = Sierpinski(10000)
+    sierpinski = Sierpinski(1000)
     sierpinski.generate()
-
+    
+    
 
 
 
